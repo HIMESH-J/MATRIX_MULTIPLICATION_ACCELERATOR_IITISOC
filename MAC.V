@@ -32,10 +32,6 @@ module MAC(w,x,o,clk,load,clear);
     begin
       mul<=mulw;
     end
-  always@(posedge clk)
-   begin
-    data_w<=w;
-    data_x<=x;
-   end 
+   
 
 endmodule    
