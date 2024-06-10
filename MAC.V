@@ -20,8 +20,7 @@ module MAC(w,x,o,clk,load,clear);
   input load;
   wire[7:0] mulw;
   
-  output reg[3:0] data_x;
-  output reg[3:0] data_w;
+  
   reg [7:0]mul;
   output [7:0] o;
   
