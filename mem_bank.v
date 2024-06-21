@@ -61,11 +61,8 @@ start,data_outw1,data_outw2,data_outw3,data_outx1,data_outx2,data_outx3
         begin
             if(clear)
             begin
-                for(i=0;i<9;i=i+1)
-                    begin
-                    w_mem[i]<=4'b0;
-                    x_mem[i]<=4'b0;
-                    end
+               {w_mem[0],w_mem[1],w_mem[2],w_mem[3],w_mem[4],w_mem[5],w_mem[6],w_mem[7],w_mem[8]}=36'b0;
+               {x_mem[0],x_mem[1],x_mem[2],x_mem[3],x_mem[4],x_mem[5],x_mem[6],x_mem[7],x_mem[8]}=36'b0;
             end        
                 
         end 
