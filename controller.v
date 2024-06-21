@@ -23,9 +23,9 @@ module controller(start,clk,done,unload1,unload2,unload3);
         begin
             case(state)
                 S0: begin unload1=1'b0;unload2=1'b0;unload3=1'b0;end
-                S1: begin #1unload1=1'b1;unload2=1'b0;unload3=1'b0;end
-                S2: begin #5unload1=1'b0;unload2=1'b1;unload3=1'b0;end
-                S3: begin #5unload1=1'b0;unload2=1'b0;unload3=1'b1;#10 unload3=1'b0;end
+                S1: begin unload1=1'b1;unload2=1'b0;unload3=1'b0;end
+                S2: begin unload1=1'b0;unload2=1'b1;unload3=1'b0;end
+                S3: begin unload1=1'b0;unload2=1'b0;unload3=1'b1;#10 unload3=1'b0;end
                 default: begin unload1=1'b0;unload2=1'b0;unload3=1'b0;end
             endcase  
         end  
