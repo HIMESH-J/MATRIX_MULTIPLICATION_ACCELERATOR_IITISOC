@@ -1,5 +1,5 @@
-`include "matrix_multiplier.v"
-`include "mem_bank.v"
+//`include "matrix_multiplier.v"
+//`include "mem_bank.v"
 
 module datapath(data_in,ldw,ldx,ld,clear_mem,clear_mac,clk,unload1,unload2,unload3,start);
     input clk; 
