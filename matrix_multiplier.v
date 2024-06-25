@@ -1,5 +1,5 @@
 //`timescale 1ns / 1ps
-`include "MAC.v"
+//`include "MAC.v"
 //////////////////////////////////////////////////////////////////////////////////
 // Company: 
 // Engineer: 
@@ -25,7 +25,7 @@ module matmul( data_w1,data_w2,data_w3,data_x1,data_x2,data_x3,clk,load,clear);
 
     input[3:0] data_w1,data_w2,data_w3,data_x1,data_x2,data_x3;
     input clk,load,clear;
-    wire [7:0] o11,o12,o13,o21,o22,o23,o31,o32,o33;
+    wire [9:0] o11,o12,o13,o21,o22,o23,o31,o32,o33;
     //reg clear;
     /*initial
     begin
