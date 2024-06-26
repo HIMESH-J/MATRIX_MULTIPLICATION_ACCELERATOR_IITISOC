@@ -38,10 +38,9 @@ start,data_outw1,data_outw2,data_outw3,data_outx1,data_outx2,data_outx3
     integer w=0;// for address of w
     //integer i;
     output reg[3:0] data_outw1,data_outw2,data_outw3,data_outx1,data_outx2,data_outx3;
-    wire x_lim,w_lim;
+    
     parameter S0=2'b00,S1=2'b01,S2=2'b10,S3=2'b11;
-    comparator_greater_than gtw(4'd9,w,w_lim);
-    comparator_greater_than gtx(4'd9,x,x_lim);
+    
     
 
     initial
@@ -49,12 +48,12 @@ start,data_outw1,data_outw2,data_outw3,data_outx1,data_outx2,data_outx3
         
     always@( posedge clk) // data writing
          begin
-            if(load_w&& w_lim)
+             if(load_w&& w<9)
                 begin
                 w_mem[w]=data_in;
                 w=w+1;
                 end
-            else if(load_x && x_lim)
+             else if(load_x && x<9)
                 begin
                 x_mem[x]=data_in;
                 x=x+1; 
