@@ -40,3 +40,15 @@ module multiplier(
     fulladder a12(w33,c32,c23,op[6],op[7]);
 endmodule
 
+module multiplier_2bit(output[3:0] out,input[1:0] a,b);
+    wire temp[2:0];
+    wire carry_temp;
+    and(out[0],a[0],b[0]);
+    and(temp[0],a[1],b[0]);
+    and(temp[1],a[0],b[1]);
+    and(temp[2],a[1],b[1]);
+    adder add1(temp[0],temp[1],out[1],carry_temp);
+    adder add2(temp[2],carry_temp,out[2],out[3]);
+    
+    
+endmodule
