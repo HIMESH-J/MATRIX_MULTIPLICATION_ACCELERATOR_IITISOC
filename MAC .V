@@ -4,14 +4,17 @@
 module accumulator(x,y,clr,clk,ld);
   input[7:0] x;
   output reg[9:0] y;
+  wire[9:0] y_temp;
   input clr,clk,ld;
-  
-    
-  always@(posedge clk )
+  mux_mac mux(y_temp,y,x,clr,ld);
+  always@(posedge clk)
+    y=y_temp;
+  //mux_2X1_4bit mux(y,10'd0,y+x,ld,clk);  
+  /*always@(posedge clk )
     begin
        if(clr)y<=10'b00000000;
        else if(ld) y<=y+x;
-    end    
+    end   */ 
 endmodule
 /*
 Purpose: The accumulator module is designed to accumulate (y = y + x) a value x into y based on control signals clr, clk, and ld.
