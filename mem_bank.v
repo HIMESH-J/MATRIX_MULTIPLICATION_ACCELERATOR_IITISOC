@@ -23,7 +23,7 @@ module mem_bank(data_outw1,data_outw2,data_outw3,data_outx1,data_outx2,data_outx
     reg[3:0] w_unload=0;
     reg[3:0] x_unload=0;
     
-    mux_2X1_1bit mux(ld_mac,1'b1,1'b0,x==count_x);
+    equality_checker check(ld_mac,x,count_x);    
     not(clear_mac,ld_mac);
 
     
@@ -31,8 +31,7 @@ module mem_bank(data_outw1,data_outw2,data_outw3,data_outx1,data_outx2,data_outx
     wire select_ldw,select_ldx,select_ldx_temp,select_ldwdash,select_ldxdash;
     
     comparator_greater_than comp1(select_ldw,count_w,w);
-    comparator_greater_than comp2(select_ldx_temp,count_x,x);
-    
+    comparator_greater_than comp2(select_ldx_temp,count_x,x);    
     not(select_ldwdash,select_ldw);
     not(select_ldxdash,select_ldx);
     and(select_ldx,select_ldx_temp,select_ldwdash);
@@ -137,18 +136,30 @@ module mem_bank(data_outw1,data_outw2,data_outw3,data_outx1,data_outx2,data_outx
     wire load_x8;
     equality_checker x8(load_x8,x,4'd8);    
     mux_2X1_mem mux_memx9(temp_x[8],data_in,x_mem[8],load_x8);
-    mux_2X1_mem mux_memx99(x_mem[8],4'd0,temp_x[8],clear_mem);
+    mux_2X1_mem mux_memx99(x_mem[8],4'd0,temp_x[8],clear_mem);    
     
     
-    mux_2X1_4bit m3(w_unload_temp,w_unload+4'd1,w_unload,(x==count_x)&& (w_unload<col_w),clk);
-    mux_2X1_4bit m4(x_unload_temp,x_unload+col_x,x_unload,(x==count_x)&& (w_unload<col_w),clk);
+    wire select_unload_temp1,select_unload_temp2,select_unload;
+    equality_checker eq(select_unload_temp1,x,count_x);    
+    comparator_greater_than g(select_unload_temp2,{2'd0,col_w},w_unload); 
+    and(select_unload,select_unload_temp1,select_unload_temp2);   
     
-    mux_2X1_mem  mux_dataoutw1(data_outw1,w_mem[w_unload],4'd0,(x==count_x)&& (w_unload<col_w));
-    mux_2X1_mem  mux_dataoutw2(data_outw2,w_mem[w_unload+col_w],4'd0,(x==count_x)&& (w_unload<col_w));
-    mux_2X1_mem  mux_dataoutw3(data_outw3,w_mem[w_unload+2*col_w],4'd0,(x==count_x)&& (w_unload<col_w));
-    mux_2X1_mem  mux_dataoutx1(data_outx1,x_mem[x_unload],4'd0,(x==count_x)&& (w_unload<col_w));
-    mux_2X1_mem  mux_dataoutx2(data_outx2,x_mem[x_unload+1],4'd0,(x==count_x)&& (w_unload<col_w));
-    mux_2X1_mem  mux_dataoutx3(data_outx3,x_mem[x_unload+2],4'd0,(x==count_x)&& (w_unload<col_w));
+    wire[3:0] w_unload_plus_1,x_unload_plus_col_x, w_unload_plus_col_w,w_unload_plus_2col_w;
+
+    adder_4bit add1(w_unload_plus_1,w_unload,4'd1);
+    adder_4bit add2(x_unload_plus_col_x,x_unload,{2'd0,col_x});
+    adder_4bit add3(w_unload_plus_col_w,w_unload,{2'd0,col_w});
+    adder_4bit add4(w_unload_plus_2col_w,w_unload_plus_col_w,{2'd0,col_w});
+
+    mux_2X1_4bit m3(w_unload_temp,w_unload_plus_1,w_unload,select_unload,clk);
+    mux_2X1_4bit m4(x_unload_temp,x_unload_plus_col_x,x_unload,select_unload,clk);        
+    
+    mux_2X1_mem  mux_dataoutw1(data_outw1,w_mem[w_unload],4'd0,select_unload);
+    mux_2X1_mem  mux_dataoutw2(data_outw2,w_mem[w_unload_plus_col_w],4'd0,select_unload);
+    mux_2X1_mem  mux_dataoutw3(data_outw3,w_mem[w_unload_plus_2col_w],4'd0,select_unload);
+    mux_2X1_mem  mux_dataoutx1(data_outx1,x_mem[x_unload],4'd0,select_unload);
+    mux_2X1_mem  mux_dataoutx2(data_outx2,x_mem[x_unload+1],4'd0,select_unload);
+    mux_2X1_mem  mux_dataoutx3(data_outx3,x_mem[x_unload+2],4'd0,select_unload);
     
     always@(w_unload_temp)
         w_unload=w_unload_temp;
