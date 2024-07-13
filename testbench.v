@@ -73,7 +73,7 @@ module testbench();
            end
         end*/
     initial 
-        #1000 $finish;    
+        #240 $finish;    
         
         
  endmodule        
