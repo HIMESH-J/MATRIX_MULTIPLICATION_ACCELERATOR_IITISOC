@@ -1,9 +1,10 @@
-module mem_bank(data_outw1,data_outw2,data_outw3,data_outx1,data_outx2,data_outx3,ld_mac,clear_mac,
+module mem_bank(data_outw1,data_outw2,data_outw3,data_outx1,data_outx2,data_outx3,ld_mac,clear_mac,unload_res,
                 data_in,clear_mem,row_w,row_x,col_w,col_x,
                 clk);
     output [3:0] data_outw1,data_outw2,data_outw3,data_outx1,data_outx2,data_outx3;
     output  ld_mac;
     output clear_mac;
+    output unload_res;
     input[3:0] data_in;
     input clear_mem;
     input [1:0] row_w,row_x,col_w,col_x;
@@ -166,7 +167,8 @@ module mem_bank(data_outw1,data_outw2,data_outw3,data_outx1,data_outx2,data_outx
         w_unload=w_unload_temp;
     always@(posedge clk)
         x_unload=x_unload_temp;  
-        
+    
+    equality_checker done_check(unload_res,w_unload,{2'd0,col_w});    
           
 endmodule
 
