@@ -2,8 +2,8 @@ module mem_bank(data_outw1,data_outw2,data_outw3,data_outx1,data_outx2,data_outx
                 data_in,clear_mem,row_w,row_x,col_w,col_x,
                 clk);
     output [3:0] data_outw1,data_outw2,data_outw3,data_outx1,data_outx2,data_outx3;
-    output  ld_mac;
-    output clear_mac;
+    output[8:0]  ld_mac;
+    output[8:0] clear_mac;
     output unload_res;
     input[3:0] data_in;
     input clear_mem;
@@ -24,9 +24,6 @@ module mem_bank(data_outw1,data_outw2,data_outw3,data_outx1,data_outx2,data_outx
     reg[3:0] w_unload=0;
     reg[3:0] x_unload=0;
     
-    equality_checker check(ld_mac,x,count_x);    
-    not(clear_mac,ld_mac);
-
     
     wire[3:0] w_temp,x_temp,w_unload_temp,x_unload_temp;
     wire select_ldw,select_ldx,select_ldx_temp,select_ldwdash,select_ldxdash;
@@ -120,6 +117,50 @@ module mem_bank(data_outw1,data_outw2,data_outw3,data_outx1,data_outx2,data_outx
     wire load_x8;
     equality_checker x8(load_x8,x,4'd8);    
     mux_4X1 memx8(x_mem[8],data_in,x_mem[8],clear_mem,load_x8);
+    
+    wire ld_mac_condition1;
+    wire[8:0] ld_mac_temp;
+    
+    equality_checker check(ld_mac_condition1,x,count_x);    
+    
+    comparator_greater_than m11(ld_mac_temp[0],{2'd0,row_w},4'd0);
+    and(ld_mac[0],ld_mac_temp[0],ld_mac_condition1);
+    
+    comparator_greater_than m12(ld_mac_temp[1],{2'd0,col_x},4'd1);
+    and(ld_mac[1],ld_mac_temp[1],ld_mac_condition1);
+    
+    comparator_greater_than m13(ld_mac_temp[2],{2'd0,col_x},4'd2);
+    and(ld_mac[2],ld_mac_temp[2],ld_mac_condition1);
+    
+    comparator_greater_than m21(ld_mac_temp[3],{2'd0,row_w},4'd1);
+    and(ld_mac[3],ld_mac_temp[3],ld_mac_condition1);
+    
+    comparator_greater_than m22(ld_mac_temp[4],{2'd0,col_x},4'd1);
+    and(ld_mac[4],ld_mac_temp[4],ld_mac_temp[3],ld_mac_condition1);
+    
+    comparator_greater_than m23(ld_mac_temp[5],{2'd0,col_x},4'd2);
+    and(ld_mac[5],ld_mac_temp[5],ld_mac_temp[3],ld_mac_condition1);
+    
+    comparator_greater_than m31(ld_mac_temp[6],{2'd0,row_w},4'd2);
+    and(ld_mac[6],ld_mac_temp[6],ld_mac_condition1);
+    
+    comparator_greater_than m32(ld_mac_temp[7],{2'd0,col_x},4'd1);
+    and(ld_mac[7],ld_mac_temp[7],ld_mac_temp[6],ld_mac_condition1);
+    
+    comparator_greater_than m33(ld_mac_temp[8],{2'd0,col_x},4'd2);
+    and(ld_mac[8],ld_mac_temp[8],ld_mac_temp[6],ld_mac_condition1);   
+        
+    not(clear_mac[0],ld_mac[0]);
+    not(clear_mac[1],ld_mac[1]);
+    not(clear_mac[2],ld_mac[2]);
+    not(clear_mac[3],ld_mac[3]);
+    not(clear_mac[4],ld_mac[4]);
+    not(clear_mac[5],ld_mac[5]);
+    not(clear_mac[6],ld_mac[6]);
+    not(clear_mac[7],ld_mac[7]);
+    not(clear_mac[8],ld_mac[8]); 
+
+    
     
     wire select_unload_temp1,select_unload_temp2,select_unload;
     equality_checker eq(select_unload_temp1,x,count_x);    
