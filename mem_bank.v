@@ -170,8 +170,8 @@ module mem_bank(data_outw1,data_outw2,data_outw3,data_outx1,data_outx2,data_outx
     wire[3:0] w_unload_plus_1,x_unload_plus_col_x;
     adder_4bit add1(w_unload_plus_1,w_unload,4'd1);
     adder_4bit add2(x_unload_plus_col_x,x_unload,{2'd0,col_x});
-    mux_2X1_mem m3(w_unload_temp,w_unload_plus_1,w_unload,select_unload);
-    mux_2X1_mem m4(x_unload_temp,x_unload_plus_col_x,x_unload,select_unload);
+    mux_2X1 m3(w_unload_temp,w_unload_plus_1,w_unload,select_unload);
+    mux_2X1 m4(x_unload_temp,x_unload_plus_col_x,x_unload,select_unload);
     
     wire[3:0] w_unload_plus_col_w,w_unload_plus_2col_w;
     adder_4bit add3(w_unload_plus_col_w,w_unload,{2'd0,col_w});
