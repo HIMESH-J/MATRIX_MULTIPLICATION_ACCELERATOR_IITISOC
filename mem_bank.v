@@ -177,12 +177,12 @@ module mem_bank(data_outw1,data_outw2,data_outw3,data_outx1,data_outx2,data_outx
     adder_4bit add3(w_unload_plus_col_w,w_unload,{2'd0,col_w});
     
     adder_4bit add4(w_unload_plus_2col_w,w_unload_plus_col_w,{2'd0,col_w});
-    mux_2X1_mem  mux_dataoutw1(data_outw1,w_mem[w_unload],4'd0,select_unload);
-    mux_2X1_mem  mux_dataoutw2(data_outw2,w_mem[w_unload_plus_col_w],4'd0,select_unload);
-    mux_2X1_mem  mux_dataoutw3(data_outw3,w_mem[w_unload_plus_2col_w],4'd0,select_unload);
-    mux_2X1_mem  mux_dataoutx1(data_outx1,x_mem[x_unload],4'd0,select_unload);
-    mux_2X1_mem  mux_dataoutx2(data_outx2,x_mem[x_unload+1],4'd0,select_unload);
-    mux_2X1_mem  mux_dataoutx3(data_outx3,x_mem[x_unload+2],4'd0,select_unload);
+    mux_2X1  mux_dataoutw1(data_outw1,w_mem[w_unload],4'd0,select_unload);
+    mux_2X1  mux_dataoutw2(data_outw2,w_mem[w_unload_plus_col_w],4'd0,select_unload);
+    mux_2X1  mux_dataoutw3(data_outw3,w_mem[w_unload_plus_2col_w],4'd0,select_unload);
+    mux_2X1  mux_dataoutx1(data_outx1,x_mem[x_unload],4'd0,select_unload);
+    mux_2X1  mux_dataoutx2(data_outx2,x_mem[x_unload+1],4'd0,select_unload);
+    mux_2X1  mux_dataoutx3(data_outx3,x_mem[x_unload+2],4'd0,select_unload);
     
     always@(posedge clk)
         w_unload=w_unload_temp;
