@@ -37,8 +37,8 @@ module mem_bank(data_outw1,data_outw2,data_outw3,data_outx1,data_outx2,data_outx
     not(select_ldxdash,select_ldx);
     and(select_ldx,select_ldx_temp,select_ldwdash);
         
-    mux_2X1_mem m1(w_temp,w+4'd1,w,select_ldw);
-    mux_2X1_mem m2(x_temp,x+4'd1,x,select_ldx);
+    mux_2X1 m1(w_temp,w+4'd1,w,select_ldw);
+    mux_2X1 m2(x_temp,x+4'd1,x,select_ldx);
     
     
     wire[3:0] temp_x[8:0];
