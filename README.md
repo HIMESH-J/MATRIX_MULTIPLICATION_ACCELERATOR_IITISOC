@@ -1,6 +1,10 @@
 ## Design Overview
 
-The proposed design is rooted in the systolic array architecture, capable of multiplying compatible matrices up to a size of 3x3. This gate-level Verilog HDL implementation comprises the following core modules:
+The proposed design is rooted in the systolic array architecture, capable of multiplying compatible matrices up to a size of 3x3.
+Systolic Array Design:
+()
+
+This gate-level Verilog HDL implementation comprises the following core modules:
 
 ### Core Modules
 
