@@ -2,7 +2,7 @@
 
 The proposed design is rooted in the systolic array architecture, capable of multiplying compatible matrices up to a size of 3x3.
 Systolic Array Design:
-![Systolic_Array_Design]([https://github.com/HIMESH-J/MATRIX_MULTIPLICATION_ACCELERATOR_IITISOC/blob/main/FINAL_DESIGN.png](https://github.com/HIMESH-J/MATRIX_MULTIPLICATION_ACCELERATOR_IITISOC/blob/main/SYSTOLIC_ARRAY_DESIGN.jpg))
+![Systolic_Array_Design](https://github.com/HIMESH-J/MATRIX_MULTIPLICATION_ACCELERATOR_IITISOC/blob/main/FINAL_DESIGN.png](https://github.com/HIMESH-J/MATRIX_MULTIPLICATION_ACCELERATOR_IITISOC/blob/main/SYSTOLIC_ARRAY_DESIGN.jpg))
 
 This gate-level Verilog HDL implementation comprises the following core modules:
 
