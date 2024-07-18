@@ -1,10 +1,13 @@
 ## Design Overview
 
 The proposed design is rooted in the systolic array architecture, capable of multiplying compatible matrices up to a size of 3x3.
+
 Systolic Array Design:
 
 
 ![Systolic_Array_Design_Image](https://github.com/HIMESH-J/MATRIX_MULTIPLICATION_ACCELERATOR_IITISOC/blob/main/SYSTOLIC_ARRAY_DESIGN.jpg)
+
+Block Diagram:
 
 ![Final_Design_Block_Diagram](https://github.com/HIMESH-J/MATRIX_MULTIPLICATION_ACCELERATOR_IITISOC/blob/main/FINAL_DESIGN.png)
 
