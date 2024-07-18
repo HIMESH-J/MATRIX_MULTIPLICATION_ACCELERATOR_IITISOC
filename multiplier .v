@@ -40,6 +40,7 @@ module multiplier(
     fulladder a12(w33,c32,c23,op[6],op[7]);
 endmodule
 
+// a simple 2-bit binary multiplier created using and gates and half adders
 module multiplier_2bit(output[3:0] out,input[1:0] a,b);
     wire temp[2:0];
     wire carry_temp;
