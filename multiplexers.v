@@ -1,3 +1,33 @@
+// a simple 2X1 multiplexer for 4-bit values implemented with select line select to select between in1 and in2
+module mux_2X1(output [3:0] out,input[3:0] in1,in2,input select);
+   
+    wire[3:0] temp1,temp2;
+    wire selectdash;
+    
+    not(selectdash,select);
+    
+    and(temp1[0],select,in1[0]);
+    and(temp2[0],selectdash,in2[0]);
+    or(out[0],temp1[0],temp2[0]);
+    
+    and(temp1[1],select,in1[1]);
+    and(temp2[1],selectdash,in2[1]);
+    or(out[1],temp1[1],temp2[1]);
+    
+    and(temp1[2],select,in1[2]);
+    and(temp2[2],selectdash,in2[2]);
+    or(out[2],temp1[2],temp2[2]);
+    
+    and(temp1[3],select,in1[3]);
+    and(temp2[3],selectdash,in2[3]);
+    or(out[3],temp1[3],temp2[3]);
+    
+    
+endmodule
+
+
+
+// multiplexer equation is implemented with select lines clear and ld to select between inputs y and x
 module mux_4X1(output[3:0] out,input[3:0] y,input[3:0] x,input clear,ld );
     wire cleardash;
     wire [3:0] out_temp1,out_temp2;
@@ -21,10 +51,11 @@ module mux_4X1(output[3:0] out,input[3:0] y,input[3:0] x,input clear,ld );
     or(out[0],out_temp2[0],out_temp1[0]);
     
 endmodule
-module mux_mac(output[9:0] out,input[9:0] y,input[7:0] x,input clear,ld );
-    //assign out=clear?10'd0:ld?ynew:y;
+// multiplexer equation is implemented with select lines clear and ld to select between y and y+x
+module mux_mac(output[9:0] out,input[9:0] y,input[7:0] x,input clear,ld ); // 
+    
     wire[9:0] ynew;
-    adder_10bit add(ynew,y,{2'b00,x});
+    adder_10bit add(ynew,y,{2'b00,x}); // adder instantiated to calculate y+x
     
     wire cleardash;
     wire [9:0] out_temp1,out_temp2;
@@ -77,28 +108,3 @@ module mux_mac(output[9:0] out,input[9:0] y,input[7:0] x,input clear,ld );
     
 endmodule
 
-module mux_2X1(output [3:0] out,input[3:0] in1,in2,input select);
-   
-    wire[3:0] temp1,temp2;
-    wire selectdash;
-    
-    not(selectdash,select);
-    
-    and(temp1[0],select,in1[0]);
-    and(temp2[0],selectdash,in2[0]);
-    or(out[0],temp1[0],temp2[0]);
-    
-    and(temp1[1],select,in1[1]);
-    and(temp2[1],selectdash,in2[1]);
-    or(out[1],temp1[1],temp2[1]);
-    
-    and(temp1[2],select,in1[2]);
-    and(temp2[2],selectdash,in2[2]);
-    or(out[2],temp1[2],temp2[2]);
-    
-    and(temp1[3],select,in1[3]);
-    and(temp2[3],selectdash,in2[3]);
-    or(out[3],temp1[3],temp2[3]);
-    
-    
-endmodule
