@@ -27,12 +27,15 @@ module comparator_greater_than(output gt,input[3:0] a,b);
 
 endmodule    
 
-module equality_checker(output out,input[3:0] a,b);
+module equality_checker(output out,input[3:0] a,b);        // outputs 1 if a is equal to be else outputs 0
+    // for a to be equal to b all 4 bits of a and b must match
+    // using xnor gates for bit-matching as a~^b=1 iff a=b
     wire temp[3:0];
-    xnor(temp[3],a[3],b[3]);
+    xnor(temp[3],a[3],b[3]);     
     xnor(temp[2],a[2],b[2]);
     xnor(temp[1],a[1],b[1]);
     xnor(temp[0],a[0],b[0]);
-    and(out,temp[3],temp[2],temp[1],temp[0]);
+    
+    and(out,temp[3],temp[2],temp[1],temp[0]);// a=b iff a[3]=b[3],a[2]=b[2],a[1]=b[1],a[0]=b[0]
 
 endmodule
