@@ -9,7 +9,7 @@ Systolic Array Design:
 
 Block Diagram:
 
-![Final_Design_Block_Diagram]([[https://github.com/HIMESH-J/MATRIX_MULTIPLICATION_ACCELERATOR_IITISOC/blob/main/FINAL_DESIGN.png])
+![Final_Design_Block_Diagram]([https://github.com/HIMESH-J/MATRIX_MULTIPLICATION_ACCELERATOR_IITISOC/blob/main/FINAL_DESIGN.png])
 
 This gate-level Verilog HDL implementation comprises the following core modules:
 
