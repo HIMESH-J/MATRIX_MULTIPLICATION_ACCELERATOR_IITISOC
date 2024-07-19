@@ -1,18 +1,22 @@
 module testbench();
-    reg[3:0] data_in;
-    reg clk=1'b0; always#5 clk=~clk;
+    reg[3:0] data_in;                                                                    // Declaring data in register that stores temporarily elements of input matrices one at a time
+    reg clk=1'b0; always#5 clk=~clk;                                                     // setting up clock
     
-    reg clear_mem;
-    reg[1:0] row_w,row_x,col_w,col_x;
+    reg clear_mem;                                                                       // register to store signal for clearing memory
+    reg[1:0] row_w,row_x,col_w,col_x;                                                    // registers to store number columns and rows of input matrices
     wire[9:0] res;
-    datapath d(res,data_in,clk,clear_mem,row_w,row_x,col_w,col_x);
+    
+    datapath d(res,data_in,clk,clear_mem,row_w,row_x,col_w,col_x);                       // instantiating our design and connecting the ports in order
     
     
     initial begin
-      clear_mem=1'b1;
+      clear_mem=1'b1;                                                                   // firstly clearing the memory
     end
     initial begin
-      #1 clear_mem=1'b0;
+      #1 clear_mem=1'b0;                                                               // setting clear memory signal to low so that we can start loading values
+
+         
+        // loading input matrices. both the matrices are being loaded row-wise. Data values and no.of columns and rows can be modified as long as each value can be stored in 4-bits and matrices are of maximum size 3X3
          row_w=2'd3;col_w=2'd2;row_x=2'd2;col_x=2'd3;
          data_in=4'd1;
     #10  data_in=4'd3;
@@ -26,52 +30,11 @@ module testbench();
     #10  data_in=4'd11;
     #10  data_in=4'd12;
     #10  data_in=4'd13;
-         /*row_w=2'd1;col_w=2'd1;row_x=2'd1;col_x=2'd1;
-         data_in=4'd10;
-     #10 data_in=4'd15;*/
-       /*  row_w=2'd2;col_w=2'd2;row_x=2'd2;col_x=2'd2;
-         data_in=4'd1;
-     #10 data_in=4'd0;
-     #10 data_in=4'd0;
-     #10 data_in=4'd1;
-     #10 data_in=4'd1;
-     #10 data_in=4'd0;
-     #10 data_in=4'd0;
-     #10 data_in=4'd1;  */ 
+         
     end
+    // monitoring output at every negative edge of clock(negative edge because at every positive edge matrix multiplier module is giving one result 
      always@(negedge clk) 
-        $display($time,"%d",res);
-    /*initial
-             $monitor($time,"\n %d %d %d ",d.m.o11,d.m.o12,d.m.o13,
-                            " \n %d %d %d ",d.m.o21,d.m.o22,d.m.o23,
-                            " \n %d %d %d ",d.m.o31,d.m.o32,d.m.o33);*/
-                            
-   /* initial
-        $monitor($time," %d %b",d.b.w_unload,d.b.select_unload_temp2); */
-    /*always@(posedge clk)begin
-           if(counter<col_w&& counter_w<col_w*row_w&&!counter_x)begin
-                $display("%d ",data_in);
-                counter=counter+1;
-                counter_w=counter_w+1;                
-                end
-           else if(!counter_x && counter==col_w  && counter_w<col_w*row_w )begin
-            $display("\n %d ",data_in);
-            counter=0;
-            counter_w=counter_w+1;
-           end
-           else if(counter_w==col_w*row_w && counter<col_x &&counter_x<row_x*col_x)begin
-                $display("%d ",data_in);
-                counter=counter+1;
-                counter_x=counter_x+1;                
-                
-           end
-           else if(counter_w==col_w*row_w && counter==col_x && counter_x<row_x*col_x)begin
-             $display("\n %d ",data_in);
-            counter=0;
-            counter_x=counter_x+1;
-          
-           end
-        end*/
+         $display($time,"%d",res);    // row wise elements will be displayed
     initial 
         #240 $finish;    
         
