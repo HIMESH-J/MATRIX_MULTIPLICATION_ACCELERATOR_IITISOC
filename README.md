@@ -1,6 +1,6 @@
 ## Design Overview
 
-The proposed design is rooted in the systolic array architecture, capable of multiplying compatible matrices up to a size of 3x3. Code for all the modules have been written in gate level description.
+The proposed design is rooted in the systolic array architecture, capable of multiplying compatible matrices up to a size of 3x3. Verilog code for all the modules have been written in gate level description.
 
 ##### Systolic Array Design:
 
