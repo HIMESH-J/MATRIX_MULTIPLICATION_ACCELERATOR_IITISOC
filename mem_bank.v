@@ -1,32 +1,30 @@
 module mem_bank(data_outw1,data_outw2,data_outw3,data_outx1,data_outx2,data_outx3,ld_mac,clear_mac,unload_res,
                 data_in,clear_mem,row_w,row_x,col_w,col_x,
                 clk);
-    output [3:0] data_outw1,data_outw2,data_outw3,data_outx1,data_outx2,data_outx3;
-    output[8:0]  ld_mac;
-    output[8:0] clear_mac;
-    output unload_res;
-    input[3:0] data_in;
-    input clear_mem;
-    input [1:0] row_w,row_x,col_w,col_x;
-    input clk;
+  output [3:0] data_outw1,data_outw2,data_outw3,data_outx1,data_outx2,data_outx3;              //six output datalines,3 for each input matrix
+  output[8:0]  ld_mac;                                                                         // output signal to start loading mac,8 signals for 8 macs
+  output[8:0] clear_mac;                                                                       // output signal to clear macs,8 signals for 8 macs 
+  output unload_res;                                                                           // output signal signifying that matrix multiplication is completed and results can be unloaded
+  input[3:0] data_in;                                                                          // input  for input matrix elements to be stored
+  input clear_mem;                                                                             // input signal to clear memory banks for input matrices
+  input [1:0] row_w,row_x,col_w,col_x;                                                         // input  for no. of rows and columns of input matrices
+  input clk;                                                                                   // input signal for clock
     
-    wire[3:0] count_x,count_w;
+  wire[3:0] count_x,count_w;                                                                    // wires to store no.of elements in input matrices i.e no.of rows X no. of cols
     
-    multiplier_2bit mulx(count_x,row_x,col_x);
-    multiplier_2bit mulw(count_w,row_w,col_w);
+  multiplier_2bit mulx(count_x,row_x,col_x);                                                    //instantiating 2-bit multiplier modules to calculate no. of elements
+  multiplier_2bit mulw(count_w,row_w,col_w);
     
-    wire[3:0] w_mem[8:0];
-    wire[3:0] x_mem[8:0];
+  wire[3:0] w_mem[8:0];                                                                          // memory for first matrix
+  wire[3:0] x_mem[8:0];                                                                          // memory for second matrix
     
        
-    reg[3:0] x=4'd0;
-    reg[3:0] w=4'd0;
-    reg[3:0] w_unload=0;
-    reg[3:0] x_unload=0;
+  reg[3:0] x=4'd0;                                                                               // data loading address for x-matrix
+  reg[3:0] w=4'd0;                                                                               // dataloading  address for w-matrix
     
     
     wire[3:0] w_temp,x_temp,w_unload_temp,x_unload_temp;
-    wire select_ldw,select_ldx,select_ldx_temp,select_ldwdash,select_ldxdash;
+    wire select_ldw,select_ldx,select_ldx_temp,select_ldwdash,select_ldxdash;                   // select lines which will we be used to select whether to load w-matrix or x-matrix
     
     comparator_greater_than comp1(select_ldw,count_w,w);
     comparator_greater_than comp2(select_ldx_temp,count_x,x);    
@@ -161,15 +159,17 @@ module mem_bank(data_outw1,data_outw2,data_outw3,data_outx1,data_outx2,data_outx
     not(clear_mac[8],ld_mac[8]); 
 
     
+  reg[3:0] w_unload=0;
+  reg[3:0] x_unload=0;
+  
+  wire select_unload_temp1,select_unload_temp2,select_unload;
+  equality_checker eq(select_unload_temp1,x,count_x);    
+  comparator_greater_than g(select_unload_temp2,{2'd0,col_w},w_unload); 
+  and(select_unload,select_unload_temp1,select_unload_temp2);   
     
-    wire select_unload_temp1,select_unload_temp2,select_unload;
-    equality_checker eq(select_unload_temp1,x,count_x);    
-    comparator_greater_than g(select_unload_temp2,{2'd0,col_w},w_unload); 
-    and(select_unload,select_unload_temp1,select_unload_temp2);   
-    
-    wire[3:0] w_unload_plus_1,x_unload_plus_col_x;
-    adder_4bit add1(w_unload_plus_1,w_unload,4'd1);
-    adder_4bit add2(x_unload_plus_col_x,x_unload,{2'd0,col_x});
+  wire[3:0] w_unload_plus_1,x_unload_plus_col_x;
+  adder_4bit add1(w_unload_plus_1,w_unload,4'd1);
+  adder_4bit add2(x_unload_plus_col_x,x_unload,{2'd0,col_x});
     mux_2X1 m3(w_unload_temp,w_unload_plus_1,w_unload,select_unload);
     mux_2X1 m4(x_unload_temp,x_unload_plus_col_x,x_unload,select_unload);
     
