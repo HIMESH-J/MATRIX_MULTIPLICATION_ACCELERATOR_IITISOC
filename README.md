@@ -5,7 +5,7 @@ The proposed design is rooted in the systolic array architecture, capable of mul
 Systolic Array Design:
 
 
-![Systolic_Array_Design_Image](https://github.com/HIMESH-J/MATRIX_MULTIPLICATION_ACCELERATOR_IITISOC/blob/main/SYSTOLIC_ARRAY_DESIGN.jpg)
+![Systolic_Array_Design_Image](https://github.com/HIMESH-J/MATRIX_MULTIPLICATION_ACCELERATOR_IITISOC/blob/main/Design_Diagrams/Systolic_Array.jpg)
 
 Block Diagram:
 
