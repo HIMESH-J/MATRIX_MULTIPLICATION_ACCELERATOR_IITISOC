@@ -23,17 +23,16 @@ module mem_bank(data_outw1,data_outw2,data_outw3,data_outx1,data_outx2,data_outx
   reg[3:0] w=4'd0;                                                                               // dataloading  address for w-matrix
     
     
-    wire[3:0] w_temp,x_temp,w_unload_temp,x_unload_temp;
-    wire select_ldw,select_ldx,select_ldx_temp,select_ldwdash,select_ldxdash;                   // select lines which will we be used to select whether to load w-matrix or x-matrix
+  wire[3:0] w_temp,x_temp,w_unload_temp,x_unload_temp;
+  wire select_ldw,select_ldx,select_ldx_temp,select_ldwdash;                                      // select lines which will we be used to select whether to load w-matrix or x-matrix
     
-    comparator_greater_than comp1(select_ldw,count_w,w);
-    comparator_greater_than comp2(select_ldx_temp,count_x,x);    
-    not(select_ldwdash,select_ldw);
-    not(select_ldxdash,select_ldx);
-    and(select_ldx,select_ldx_temp,select_ldwdash);
+  comparator_greater_than comp1(select_ldw,count_w,w);                                           //loading w if data load address for w is less than no. of elements in w 
+  comparator_greater_than comp2(select_ldx_temp,count_x,x);                                        
+  not(select_ldwdash,select_ldw);  
+  and(select_ldx,select_ldx_temp,select_ldwdash);                                                // loading x if we are loading w and data load address for x is less than no. of elements in x
         
-    mux_2X1 m1(w_temp,w+4'd1,w,select_ldw);
-    mux_2X1 m2(x_temp,x+4'd1,x,select_ldx);
+  mux_2X1 m1(w_temp,w+4'd1,w,select_ldw);
+  mux_2X1 m2(x_temp,x+4'd1,x,select_ldx);
     
     
     wire[3:0] temp_x[8:0];
