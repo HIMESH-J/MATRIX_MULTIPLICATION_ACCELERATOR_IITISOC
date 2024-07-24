@@ -19,8 +19,8 @@ module mem_bank(data_outw1,data_outw2,data_outw3,data_outx1,data_outx2,data_outx
   wire[3:0] x_mem[8:0];                                                                          // memory for second matrix
     
        
-  reg[3:0] x;                                                                               // data loading address for x-matrix
-  reg[3:0] w;
+  wire[3:0] x;                                                                               // data loading address for x-matrix
+  wire[3:0] w;
   wire[3:0] x_temp;
   wire[3:0] w_temp;                                                                               // dataloading  address for w-matrix
   wire[3:0] w_unload_temp,x_unload_temp;
@@ -38,10 +38,8 @@ module mem_bank(data_outw1,data_outw2,data_outw3,data_outx1,data_outx2,data_outx
   not(notclk,clk);      
   binary_counter c1(w_temp,notclk,clear_mem,count_w);
   binary_counter c2(x_temp,notclk,clear_x_counter,count_x);
-  always@(x_temp,w_temp)begin
-    x=x_temp;
-    w=w_temp;
-  end
+  register_customised regx(x,x_temp,clk,clear_x_counter);
+  register_customised regw(w,w_temp,clk,clear_mem);
    
   wire load_w0;                                                                                  // control signal specifying whether we are loading address 0 or not
   equality_checker w0(load_w0,w,4'd0);                                                           // we are loading zero iff w==0
