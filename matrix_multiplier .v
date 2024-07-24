@@ -33,7 +33,7 @@ module matrix_multiplier( data_out,data_w1,data_w2,data_w3,data_x1,data_x2,data_
     mux_2X1 mux1(i_temp,i_plus_1,i,select_unload);
     always@(posedge clk)
         i=i_temp;
-    assign data_out=res[i];    
+    assign data_out=unload_res?res[i]:4'd0;    
     
     
 endmodule
