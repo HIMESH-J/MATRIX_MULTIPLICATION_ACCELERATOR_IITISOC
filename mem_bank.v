@@ -19,30 +19,30 @@ module mem_bank(data_outw1,data_outw2,data_outw3,data_outx1,data_outx2,data_outx
   wire[3:0] x_mem[8:0];                                                                          // memory for second matrix
     
        
-  reg[3:0] x=4'd0;                                                                               // data loading address for x-matrix
-  reg[3:0] w=4'd0;                                                                               // dataloading  address for w-matrix
-    
-    
-  wire[3:0] w_temp,x_temp,w_unload_temp,x_unload_temp;
-  wire select_ldw,select_ldx,select_ldx_temp,select_ldwdash;                                      // select lines which will we be used to select whether to load w-matrix or x-matrix
+  reg[3:0] x;                                                                               // data loading address for x-matrix
+  reg[3:0] w;
+  wire[3:0] x_temp;
+  wire[3:0] w_temp;                                                                               // dataloading  address for w-matrix
+  wire[3:0] w_unload_temp,x_unload_temp;
+  wire select_ldw,select_ldx,select_ldx_temp,select_ldwdash,select_ldxdash;                                      // select lines which will we be used to select whether to load w-matrix or x-matrix
     
   comparator_greater_than comp1(select_ldw,count_w,w);                                           //loading w if data load address for w is less than no. of elements in w 
   comparator_greater_than comp2(select_ldx_temp,count_x,x);                                        
-  not(select_ldwdash,select_ldw);  
+  not(select_ldwdash,select_ldw);
+  not(select_ldxdash,select_ldx);  
   and(select_ldx,select_ldx_temp,select_ldwdash);                                                // loading x if we are loading w and data load address for x is less than no. of elements in x
-        
-  wire[3:0] w_plus_1,x_plus_1;                                                                   
-  adder_4bit wplus1(w_plus_1,w,4'd1);                                                            // adders instantiated to increment the address
-  adder_4bit xplus1(x_plus_1,x,4'd1);                                                
-  mux_2X1 m1(w_temp,w_plus_1,w,select_ldw);                                                      // selecting between w and w+1 ,selecting w+1 only if we are loading w ,similarly for x
-  mux_2X1 m2(x_temp,x_plus_1,x,select_ldx);  
-    
-  // updating address at every positive edge of clock, to load next address  
- always@(posedge clk)
-     w=w_temp;
- always@(posedge clk)
-    x=x_temp;    
-    
+  wire clear_x_counter,clear_w_counter;
+  wire notclk;
+ 
+  or(clear_x_counter,clear_mem,select_ldw);
+  not(notclk,clk);      
+  binary_counter c1(w_temp,notclk,clear_mem,count_w);
+  binary_counter c2(x_temp,notclk,clear_x_counter,count_x);
+  always@(x_temp,w_temp)begin
+    x=x_temp;
+    w=w_temp;
+  end
+   
   wire load_w0;                                                                                  // control signal specifying whether we are loading address 0 or not
   equality_checker w0(load_w0,w,4'd0);                                                           // we are loading zero iff w==0
   mux_4X1 memw0(w_mem[0],data_in,w_mem[0],clear_mem,load_w0);                                    // mux with select lines load and clear, if clear is high then it assigns 0 if load is high then it assigns data_in otherwise it assigns itself to itself
@@ -114,7 +114,7 @@ module mem_bank(data_outw1,data_outw2,data_outw3,data_outx1,data_outx2,data_outx
   wire load_x8;
   equality_checker x8(load_x8,x,4'd8);    
   mux_4X1 memx8(x_mem[8],data_in,x_mem[8],clear_mem,load_x8);
-    
+  
   wire ld_mac_condition1;
   wire[8:0] ld_mac_condition2;    
   equality_checker check(ld_mac_condition1,x,count_x);                                                    // first condition to start multiplication i.e loading mac is that address of x is equal to no. of elements of x 
@@ -192,4 +192,3 @@ module mem_bank(data_outw1,data_outw2,data_outw3,data_outx1,data_outx2,data_outx
   equality_checker done_check(unload_res,w_unload,{2'd0,col_w});                            //if complete data unloading is done then w_unload will be equal to col_w, and hence multiplication will be finished, that implies we can start unloading the results computed
           
 endmodule
-
