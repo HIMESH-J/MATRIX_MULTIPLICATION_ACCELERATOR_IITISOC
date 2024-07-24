@@ -10,7 +10,7 @@ module matrix_multiplier( data_out,data_w1,data_w2,data_w3,data_x1,data_x2,data_
     input unload_res;
     
     wire[9:0] res[8:0];
-    reg[3:0] i=4'd0;
+    
     MAC m11(data_w1,data_x1,res[0],clk,load[0],clear[0]);
     MAC m12(data_w1,data_x2,res[1],clk,load[1],clear[1]);
     MAC m13(data_w1,data_x3,res[2],clk,load[2],clear[2]);
@@ -27,13 +27,15 @@ module matrix_multiplier( data_out,data_w1,data_w2,data_w3,data_x1,data_x2,data_
     wire i_less_than_9;
     wire[3:0] i_temp;
     wire[3:0] i_plus_1;
-    adder_4bit add(i_plus_1,i,4'd1);
-    comparator_greater_than comp_i(i_less_than_9,4'd9,i);    
+    wire[3:0] i;
+    
+    comparator_greater_than comp_i(i_less_than_9,4'd9,i);
     and(select_unload,i_less_than_9,unload_res);
-    mux_2X1 mux1(i_temp,i_plus_1,i,select_unload);
-    always@(posedge clk)
-        i=i_temp;
-    assign data_out=unload_res?res[i]:4'd0;    
+    binary_counter c(i_temp,clk,~(select_unload),4'd9);
+    register_customised r(i,i_temp,clk,clear);
+    mux_2X1 mux1(data_out[3:0],res[i][3:0],4'd0,unload_res);
+    mux_2X1 mux2(data_out[7:4],res[i][7:4],4'd0,unload_res);
+    mux_2X1 mux3(data_out[9:8],res[i][9:8],4'd0,unload_res);    
     
     
 endmodule
