@@ -25,7 +25,8 @@ This gate-level Verilog HDL implementation comprises the following core modules:
 * **Adders:** Comprises gate-level descriptions of half-adder, full-adder, 4-bit adder, and 10-bit adder components used throughout the design.
 * **Register:** Implements 4-bit and 10-bit registers to be used in design using jk flip flops designed  using just logic gates.The flip flop is triggered at every negative edge of                   clock.In order to clock pulse from clock signal just using logic gates we have used below circuit.
   ![clk_pulse_generator](https://github.com/user-attachments/assets/21da3fec-2ad6-477f-9ffa-e0fa6c36376b)
-* **Binary_Counter** This module implements a binary counter using jk flip flops which are used for generating address.  
+* **Binary_Counter:** This module implements a binary counter using jk flip flops which are used for generating address.
+* **Testbench:** Comprises of verilog testbench code in order to verify the design by simulation. 
 
 ### Further Exploration
 
