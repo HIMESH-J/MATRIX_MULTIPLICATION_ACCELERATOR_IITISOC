@@ -24,14 +24,13 @@ module mem_bank(data_outw1,data_outw2,data_outw3,data_outx1,data_outx2,data_outx
   wire[3:0] x_temp;
   wire[3:0] w_temp;                                                                               // dataloading  address for w-matrix
   wire[3:0] w_unload_temp,x_unload_temp;
-  wire select_ldw,select_ldx,select_ldx_temp,select_ldwdash,select_ldxdash;                                      // select lines which will we be used to select whether to load w-matrix or x-matrix
+  wire select_ldw;                                      // select lines which will we be used to select whether to load w-matrix or x-matrix
     
-  comparator_greater_than comp1(select_ldw,count_w,w);                                           //loading w if data load address for w is less than no. of elements in w 
-  comparator_greater_than comp2(select_ldx_temp,count_x,x);                                        
-  not(select_ldwdash,select_ldw);
-  not(select_ldxdash,select_ldx);  
-  and(select_ldx,select_ldx_temp,select_ldwdash);                                                // loading x if we are loading w and data load address for x is less than no. of elements in x
-  wire clear_x_counter,clear_w_counter;
+  comparator_greater_than comp1(select_ldw,count_w,w);                      //loading w if data load address for w is less than no. of elements in w 
+                                          
+      
+                                                 
+  wire clear_x_counter;
   wire notclk;
  
   or(clear_x_counter,clear_mem,select_ldw);
@@ -155,11 +154,11 @@ module mem_bank(data_outw1,data_outw2,data_outw3,data_outx1,data_outx2,data_outx
   not(clear_mac[8],ld_mac[8]); 
 
     
-  reg[3:0] w_unload=0;                                                                      // to store unload addresses
-  reg[3:0] x_unload=0;
+  wire[3:0] w_unload;                                                                      // to store unload addresses
+  wire[3:0] x_unload;
   
   wire select_unload_temp,select_unload;                                                   // select signals for data unloading to matrix multiplier module
-  comparator_greater_than g(select_unload_temp,{2'd0,col_w},w_unload);                     // unloading data till unload address is less than no. of columns of w
+  comparator_greater_than g(select_unload_temp,{2'b00,col_w},w_unload);                     // unloading data till unload address is less than no. of columns of w
   and(select_unload,ld_mac_condition1,select_unload_temp);                                 // also unloading data only when all the data elements of input matrices are stored that ld_mac_condition1 is high
     
   wire[3:0] w_unload_plus_1,w_unload_plus_col_w,w_unload_plus_2col_w;                      // according to our design(refer to systolic array image) we need data_outw1 to be w0 then w1 then w2,dataout w1 to be w3,w4 and the w5 and similarly for dataout w3
@@ -173,10 +172,8 @@ module mem_bank(data_outw1,data_outw2,data_outw3,data_outx1,data_outx2,data_outx
   mux_2X1 m3(w_unload_temp,w_unload_plus_1,w_unload,select_unload);                        // using mux to increment w_unload and x_unload only if we are unloading i.e select_unload is high
   mux_2X1 m4(x_unload_temp,x_unload_plus_col_x,x_unload,select_unload); 
 
-  always@(posedge clk)
-        w_unload=w_unload_temp;                                                            // updating w_unload at every positive edge pf clock after incrementing
-  always@(posedge clk)
-        x_unload=x_unload_temp;                                                            //updating x_unload at every positive edge pf clock after incrementing
+  register_customised r1(w_unload,w_unload_temp,clk,clear_mem);
+  register_customised r2(x_unload,x_unload_temp,clk,clear_mem);
   
   
   mux_2X1  mux_dataoutw1(data_outw1,w_mem[w_unload],4'd0,select_unload);                    // assigning values to dataout signals as described above using muxes
