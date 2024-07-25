@@ -12,13 +12,13 @@ endmodule
 
 
 module accumulator(x,y,clr,clk,ld);
-  input[7:0] x;                          //input value to be accumulated
-  output reg[9:0] y;                     //output for accumulated value
-  wire[9:0] y_temp;                      // intermediate wire required for mux_mac module
-  input clr,clk,ld;                      // clear, clock and load input signals
-  mux_mac mux(y_temp,y,x,clr,ld);        // mux_mac module instantiated to accumulate the value only if load signal is high,and if clear is high then outputs 0
-  always@(posedge clk)
-    y=y_temp;              // accumulating the value at every positive edge of clock
- endmodule
+  input[7:0] x;                                   //input value to be accumulated
+  output [9:0] y;                                 //output for accumulated value
+  wire[9:0] y_temp;                               // intermediate wire required for mux_mac module
+  input clr,clk,ld;                               // clear, clock and load input signals
+  mux_mac mux(y_temp,y,x,clr,ld);                 // mux_mac module instantiated to accumulate the value only if load signal is high,and if clear is high then outputs 0
+  register_customised_10bit r(y,y_temp,clk,clr);  // accumulating the value at every negative edge of clock
+  
+endmodule
 
 
