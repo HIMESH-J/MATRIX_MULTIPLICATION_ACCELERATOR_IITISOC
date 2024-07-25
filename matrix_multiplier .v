@@ -25,13 +25,13 @@ module matrix_multiplier( data_out,data_w1,data_w2,data_w3,data_x1,data_x2,data_
     
     wire select_unload;
     wire i_less_than_9;
-    wire[3:0] i_temp;
-    wire[3:0] i_plus_1;
+    wire[3:0] i_temp;    
     wire[3:0] i;
-    
+    wire notclk;
+    not(notclk,clk);
     comparator_greater_than comp_i(i_less_than_9,4'd9,i);
     and(select_unload,i_less_than_9,unload_res);
-    binary_counter c(i_temp,clk,~(select_unload),4'd9);
+    binary_counter c(i_temp,notclk,~(select_unload),4'd9);
     register_customised r(i,i_temp,clk,clear);
     mux_2X1 mux1(data_out[3:0],res[i][3:0],4'd0,unload_res);
     mux_2X1 mux2(data_out[7:4],res[i][7:4],4'd0,unload_res);
