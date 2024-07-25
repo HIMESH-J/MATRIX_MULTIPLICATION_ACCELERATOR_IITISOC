@@ -23,8 +23,9 @@ This gate-level Verilog HDL implementation comprises the following core modules:
 * **Comparator:** Contains the gate-level realization of comparators and equality checkers utilized in other modules.
 * **Multiplier:** Houses a 4-bit multiplier and a 2-bit multiplier, respectively employed in the MAC unit and for determining input matrix element count.
 * **Adders:** Comprises gate-level descriptions of half-adder, full-adder, 4-bit adder, and 10-bit adder components used throughout the design.
-* **Register:** Implemnts jk flip flops just using logic gates.The flip flop is triggered at every negative edge of clock.In order to clock pulse from clock signal just using logic gates we have used below circuit.
+* **Register:** Implements 4-bit and 10-bit registers to be used in design using jk flip flops designed  using just logic gates.The flip flop is triggered at every negative edge of                   clock.In order to clock pulse from clock signal just using logic gates we have used below circuit.
   ![clk_pulse_generator](https://github.com/user-attachments/assets/21da3fec-2ad6-477f-9ffa-e0fa6c36376b)
+* **Binary_Counter** This module implements a binary counter using jk flip flops which are used for generating address.  
 
 ### Further Exploration
 
