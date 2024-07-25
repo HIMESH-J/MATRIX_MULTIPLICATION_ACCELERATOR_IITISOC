@@ -25,7 +25,6 @@ This gate-level Verilog HDL implementation comprises the following core modules:
 * **Adders:** Comprises gate-level descriptions of half-adder, full-adder, 4-bit adder, and 10-bit adder components used throughout the design.
 * **Register:** Implemnts jk flip flops just using logic gates.The flip flop is triggered at every negative edge of clock.In order to clock pulse from clock signal just using logic gates we have used below circuit.
  ![edge triggering](https://github.com/HIMESH-/MATRIX_MULTIPLICATION_ACCELERATOR_IITISOC/blob/main/Design_Diagrams/clk_pulse_generator.png)
-
 ### Further Exploration
 
 For a comprehensive understanding of the design's functionality, please refer to the Verilog code for each module. 
