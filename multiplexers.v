@@ -1,3 +1,4 @@
+
 // a simple 2X1 multiplexer for 4-bit values implemented with select line select to select between in1 and in2
 module mux_2X1(output [3:0] out,input[3:0] in1,in2,input select);
    
@@ -104,6 +105,21 @@ module mux_mac(output[9:0] out,input[9:0] y,input[7:0] x,input clear,ld ); //
     or(out[7],out_temp1[7],out_temp2[7]);
     or(out[8],out_temp1[8],out_temp2[8]);
     or(out[9],out_temp1[9],out_temp2[9]);
+    
+    
+endmodule
+
+module mux_2X1_1bit(output out,input a,b,select);
+    wire temp1,temp2;
+    wire selectbar;
+    
+    not(selectbar,select);
+    
+    and(temp1,select,a);
+    and(temp2,selectbar,b);
+    
+    or(out,temp1,temp2);
+    
     
     
 endmodule
