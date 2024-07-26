@@ -10,7 +10,7 @@ The proposed design is rooted in the systolic array architecture, capable of mul
 
 ![Final_Design_Block_Diagram](https://github.com/HIMESH-J/MATRIX_MULTIPLICATION_ACCELERATOR_IITISOC/blob/main/Design_Diagrams/FINAL_DESIGN.png)
 The design can be better understood via the following animation:
-[design animation](https://github.com/HIMESH-J/MATRIX_MULTIPLICATION_ACCELERATOR_IITISOC/tree/main/Design_Diagrams)
+[design animation](https://github.com/HIMESH-J/MATRIX_MULTIPLICATION_ACCELERATOR_IITISOC/blob/main/Design_Diagrams/designanimatn.mp4)
 
 This gate-level Verilog HDL implementation comprises the following core modules:
 
