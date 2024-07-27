@@ -3,12 +3,8 @@
 The proposed design is rooted in the systolic array architecture, capable of multiplying compatible matrices up to a size of 3x3. Verilog code for all the modules have been written in gate level description.
 
 #### Design:
+![Systolic_array](https://github.com/user-attachments/assets/69fbeb5b-156f-4a47-a0a1-e2b71f0baac6)
 
-
-![Systolic_Array_Design_Image](https://github.com/HIMESH-J/MATRIX_MULTIPLICATION_ACCELERATOR_IITISOC/blob/main/Design_Diagrams/Systolic_Array.jpg)
-#### Block Diagram:
-
-![Final_Design_Block_Diagram](https://github.com/HIMESH-J/MATRIX_MULTIPLICATION_ACCELERATOR_IITISOC/blob/main/Design_Diagrams/FINAL_DESIGN.png)
 Suppose we want to multiply two 3X3 matrices:
 ![matrix](https://github.com/user-attachments/assets/4402ae77-08b7-4d76-b551-9c684c8b98e4)
 Then following steps will be followed:-
@@ -24,6 +20,11 @@ Then following steps will be followed:-
 * **Step-3:**
    
    ![step-3](https://github.com/user-attachments/assets/25cd1157-f22c-4dc8-b83c-afb882757558)
+
+
+#### Block Diagram:
+
+![Final_Design_Block_Diagram](https://github.com/HIMESH-J/MATRIX_MULTIPLICATION_ACCELERATOR_IITISOC/blob/main/Design_Diagrams/FINAL_DESIGN.png)
 #### Making our Design capable to multiply any two compatible matrices:  
 
 In Order to multiply matrices of sizes other than 3X3 we have controlled the data out values in each step such that we get correct results. For example lets take example of a 3X2 matrix. Data_out X1 in first cycle will be x1, in second cycle x3 , in third cycle will be x5.(notice that index in each cycle is increasing by number of rows of x matrix). Similar logic has been implemented for Data_out x2 and Data_out x3.
