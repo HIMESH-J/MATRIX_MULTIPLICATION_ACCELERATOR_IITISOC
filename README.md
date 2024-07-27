@@ -9,12 +9,14 @@ The proposed design is rooted in the systolic array architecture, capable of mul
 ##### Block Diagram:
 
 ![Final_Design_Block_Diagram](https://github.com/HIMESH-J/MATRIX_MULTIPLICATION_ACCELERATOR_IITISOC/blob/main/Design_Diagrams/FINAL_DESIGN.png)
-The design can be better understood via the following animation:
-[design animation](https://github.com/HIMESH-J/MATRIX_MULTIPLICATION_ACCELERATOR_IITISOC/blob/main/Design_Diagrams/designanimatn.mp4)
-(you will need to download the video)
-This gate-level Verilog HDL implementation comprises the following core modules:
+Suppose we want to multiply two 3X3 matrices:
+![matrix](https://github.com/user-attachments/assets/4402ae77-08b7-4d76-b551-9c684c8b98e4)
+Then following steps will be followed:-
+
+
 
 ### Core Modules
+This gate-level Verilog HDL implementation comprises the following core modules:
 
 * **Memory Bank:** Sequentially stores input matrix values row-wise and subsequently transfers them to the matrix multiplier. Detailed operations are elaborated in the accompanying code.
 * **Matrix Multiplier:** Houses a systolic array of Multiply-Accumulate (MAC) units. Upon load signal activation, it processes data from the memory bank to perform matrix multiplication, outputting results row-wise per clock cycle.
