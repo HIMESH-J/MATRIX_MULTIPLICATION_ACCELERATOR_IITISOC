@@ -22,8 +22,15 @@ Then following steps will be followed:-
   
   ![step-2](https://github.com/user-attachments/assets/2b16060a-dc6e-40a4-a4c9-5af25b480182)
 * **Step-3:**
-*   
+   
    ![step-3](https://github.com/user-attachments/assets/25cd1157-f22c-4dc8-b83c-afb882757558)
+#### Making our Design capable to multiply any two compatible matrices:  
+
+In Order to multiply matrices of sizes other than 3X3 we have controlled the data out values in each step such that we get correct results. For example lets take example of a 3X2 matrix. Data_out X1 in first cycle will be x1, in second cycle x3 , in third cycle will be x5.(notice that index in each cycle is increasing by number of rows of x matrix). Similar logic has been implemented for Data_out x2 and Data_out x3.
+
+Now lets consider Data_out w1. In first cycle its value will be w1, in next cycle it will be w2,then w3 and so on. That means in every cycle the index increments by 1. Similar logic has been implemented for Data_out w2 and Data_out w3.
+
+We go through as many cycles as there are number of rows in 2nd matrix ( which is equal to number of columns of first matrix if matrix multiplication is allowed).
 
 ### Core Modules
 This gate-level Verilog HDL implementation comprises the following core modules:
@@ -42,6 +49,10 @@ This gate-level Verilog HDL implementation comprises the following core modules:
 * **Testbench:** Comprises of verilog testbench code in order to verify the design by simulation.
 ### Verification and Simulation:-
 The Design was verified using Vivado through various test cases. For Example one of the test cases is as follows:-
+* **Expected-Result:**  
+![test_case](https://github.com/user-attachments/assets/5219da3c-645c-431a-bd0e-089ef839b5a5)
+* **Vivado simulation Results:**  
+![Simulation Result](https://github.com/user-attachments/assets/99c270fe-728d-4156-b435-4cd4302279eb)
 
 ### Further Exploration
 
