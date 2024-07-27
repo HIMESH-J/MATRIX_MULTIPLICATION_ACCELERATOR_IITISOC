@@ -40,9 +40,12 @@ module adder_10bit(output[9:0] out,input[9:0]a,b);
     fulladder f7(a[6],b[6],carries[5],out[6],carries[6]);
     fulladder f8(a[7],b[7],carries[6],out[7],carries[7]);
     fulladder f9(a[8],b[8],carries[7],out[8],carries[8]);
-    fulladder f10(a[9],b[9],carries[8],out[9],carries[9]);
+    sum_without_carry_out f10(out[9],a[9],b[9],carries[8]);
     
     
 
+endmodule
+module sum_without_carry_out(output sum,input a,b,cin);
+    xor(sum,a,b,cin);
 endmodule
 
