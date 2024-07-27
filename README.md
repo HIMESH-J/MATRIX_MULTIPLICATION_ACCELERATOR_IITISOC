@@ -13,12 +13,16 @@ Suppose we want to multiply two 3X3 matrices:
 ![matrix](https://github.com/user-attachments/assets/4402ae77-08b7-4d76-b551-9c684c8b98e4)
 Then following steps will be followed:-
 * **Step-0:**
+  
   ![step-0](https://github.com/user-attachments/assets/522fb688-da7b-4c04-a2d4-b46c3bed6e20)
 * **Step-1:**
+  
   ![step-1](https://github.com/user-attachments/assets/ced60285-837b-489b-a030-94e810d37e75)
 * **Step-2:**
+  
   ![step-2](https://github.com/user-attachments/assets/2b16060a-dc6e-40a4-a4c9-5af25b480182)
 * **Step-3:**
+*   
    ![step-3](https://github.com/user-attachments/assets/25cd1157-f22c-4dc8-b83c-afb882757558)
 
 ### Core Modules
