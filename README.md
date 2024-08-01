@@ -10,7 +10,7 @@ Suppose we want to multiply two 3X3 matrices:
 Then following steps will be followed:-
 * **Step-0:**
   
-  ![step-0](https://github.com/user-attachments/assets/522fb688-da7b-4c04-a2d4-b46c3bed6e20)
+  ![step-0](https://github.com/user-attachments/assets/f15265e8-0c33-48be-b13f-4f7fa9d08998)
 * **Step-1:**
   
   ![step-1](https://github.com/user-attachments/assets/ced60285-837b-489b-a030-94e810d37e75)
