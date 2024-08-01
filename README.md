@@ -31,6 +31,8 @@ In Order to multiply matrices of sizes other than 3X3 we have controlled the dat
 
 Now lets consider Data_out w1. In first cycle its value will be w1, in next cycle it will be w2,then w3 and so on. That means in every cycle the index increments by 1. Similar logic has been implemented for Data_out w2 and Data_out w3.
 
+We also control whether a particular MAC is to be ensbled or not by a load signal.We have implemented 9 different load signals for each MAC. load signal for MAC(i,j) will be HIGH iff no.of rows of w>=i and no.of columns of x>=j.
+
 We go through as many cycles as there are number of rows in 2nd matrix ( which is equal to number of columns of first matrix if matrix multiplication is allowed).
 
 ### Core Modules
