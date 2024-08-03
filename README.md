@@ -5,8 +5,10 @@ The proposed design is rooted in the systolic array architecture, capable of mul
 #### Design:
 ![Systolic_array](https://github.com/user-attachments/assets/69fbeb5b-156f-4a47-a0a1-e2b71f0baac6)
 
-Suppose we want to multiply two 3X3 matrices:
+#### Design Explanation Video:
 ![matrix](https://github.com/user-attachments/assets/4402ae77-08b7-4d76-b551-9c684c8b98e4)
+
+Suppose we want to multiply two 3X3 matrices:
 Then following steps will be followed:-
 * **Step-0:**
   
