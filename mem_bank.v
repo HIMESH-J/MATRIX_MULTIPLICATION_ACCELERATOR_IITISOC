@@ -42,76 +42,76 @@ module mem_bank(data_outw1,data_outw2,data_outw3,data_outx1,data_outx2,data_outx
    
   wire load_w0;                                                                                  // control signal specifying whether we are loading address 0 or not
   equality_checker w0(load_w0,w,4'd0);                                                           // we are loading zero iff w==0
-  mux_4X1 memw0(w_mem[0],data_in,w_mem[0],clear_mem,load_w0);                                    // mux with select lines load and clear, if clear is high then it assigns 0 if load is high then it assigns data_in otherwise it assigns itself to itself
-    
+  register_customised mw0(w_mem[0],data_in,load_w0,clear_mem);  
+  
   wire load_w1;                                                                                   // same logic followed for all the elements
-  equality_checker w1(load_w1,w,4'd1);   
-  mux_4X1 memw1(w_mem[1],data_in,w_mem[1],clear_mem,load_w1);
+  equality_checker w1(load_w1,w,4'd1);
+  register_customised mw1(w_mem[1],data_in,load_w1,clear_mem);     
     
   wire load_w2;
   equality_checker w2(load_w2,w,4'd2);
-  mux_4X1 memw2(w_mem[2],data_in,w_mem[2],clear_mem,load_w2);
-    
+  register_customised mw2(w_mem[2],data_in,load_w2,clear_mem); 
+      
   wire load_w3;
   equality_checker w3(load_w3,w,4'd3);
-  mux_4X1 memw3(w_mem[3],data_in,w_mem[3],clear_mem,load_w3);
-    
+  register_customised mw3(w_mem[3],data_in,load_w3,clear_mem);  
+      
   wire load_w4;
   equality_checker w4(load_w4,w,4'd4);
-  mux_4X1 memw4(w_mem[4],data_in,w_mem[4],clear_mem,load_w4);
+  register_customised mw4(w_mem[4],data_in,load_w4,clear_mem); 
     
   wire load_w5;
   equality_checker w5(load_w5,w,4'd5);
-  mux_4X1 memw5(w_mem[5],data_in,w_mem[5],clear_mem,load_w5);
-    
+  register_customised mw5(w_mem[5],data_in,load_w5,clear_mem);  
+   
   wire load_w6;
   equality_checker w6(load_w6,w,4'd6);
-  mux_4X1 memw6(w_mem[6],data_in,w_mem[6],clear_mem,load_w6);
+  register_customised mw6(w_mem[6],data_in,load_w6,clear_mem); 
     
   wire load_w7;
   equality_checker w7(load_w7,w,4'd7);
-  mux_4X1 memw7(w_mem[7],data_in,w_mem[7],clear_mem,load_w7);
+  register_customised mw7(w_mem[7],data_in,load_w7,clear_mem);  
     
   wire load_w8;
   equality_checker w8(load_w8,w,4'd8);
-  mux_4X1 memw8(w_mem[8],data_in,w_mem[8],clear_mem,load_w8);
+  register_customised mw8(w_mem[8],data_in,load_w8,clear_mem);    
             
   wire load_x0;                                                                                      // for loading x matrix
-  equality_checker x0(load_x0,x,4'd0);    
-  mux_4X1 memx0(x_mem[0],data_in,x_mem[0],clear_mem,load_x0);
+  equality_checker x0(load_x0,x,4'd0);
+  register_customised mx0(x_mem[0],data_in,load_x0,clear_mem);      
     
   wire load_x1;
   equality_checker x1(load_x1,x,4'd1);    
-  mux_4X1 memx1(x_mem[1],data_in,x_mem[1],clear_mem,load_x1);
+  register_customised mx1(x_mem[1],data_in,load_x1,clear_mem);
     
   wire load_x2;
   equality_checker x2(load_x2,x,4'd2);    
-  mux_4X1 memx2(x_mem[2],data_in,x_mem[2],clear_mem,load_x2);
+  register_customised mx2(x_mem[2],data_in,load_x2,clear_mem);
     
   wire load_x3;
-  equality_checker x3(load_x3,x,4'd3);    
-  mux_4X1 memx3(x_mem[3],data_in,x_mem[3],clear_mem,load_x3);
+  equality_checker x3(load_x3,x,4'd3);
+  register_customised mx3(x_mem[3],data_in,load_x3,clear_mem);    
     
   wire load_x4;
-  equality_checker x4(load_x4,x,4'd4);    
-  mux_4X1 memx4(x_mem[4],data_in,x_mem[4],clear_mem,load_x4);
+  equality_checker x4(load_x4,x,4'd4);
+  register_customised mx4(x_mem[4],data_in,load_x4,clear_mem);    
     
   wire load_x5;
-  equality_checker x5(load_x5,x,4'd5);    
-  mux_4X1 memx5(x_mem[5],data_in,x_mem[5],clear_mem,load_x5);
+  equality_checker x5(load_x5,x,4'd5);
+  register_customised mx5(x_mem[5],data_in,load_x5,clear_mem);    
     
   wire load_x6;
-  equality_checker x6(load_x6,x,4'd6);    
-  mux_4X1 memx6(x_mem[6],data_in,x_mem[6],clear_mem,load_x6);
+  equality_checker x6(load_x6,x,4'd6);
+  register_customised mx6(x_mem[6],data_in,load_x6,clear_mem);    
     
   wire load_x7;
-  equality_checker x7(load_x7,x,4'd7);    
-  mux_4X1 memx7(x_mem[7],data_in,x_mem[7],clear_mem,load_x7);
+  equality_checker x7(load_x7,x,4'd7);
+  register_customised mx7(x_mem[7],data_in,load_x7,clear_mem);    
     
   wire load_x8;
-  equality_checker x8(load_x8,x,4'd8);    
-  mux_4X1 memx8(x_mem[8],data_in,x_mem[8],clear_mem,load_x8);
-  
+  equality_checker x8(load_x8,x,4'd8);
+  register_customised mx8(x_mem[8],data_in,load_x8,clear_mem);    
+    
   wire ld_mac_condition1;
   wire[8:0] ld_mac_condition2;    
   equality_checker check(ld_mac_condition1,x,count_x);                                                    // first condition to start multiplication i.e loading mac is that address of x is equal to no. of elements of x 
