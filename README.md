@@ -50,9 +50,7 @@ This gate-level Verilog HDL implementation comprises the following core modules:
 * **Multiplier:** Houses a 4-bit multiplier and a 2-bit multiplier, respectively employed in the MAC unit and for determining input matrix element count.
   
 * **Adders:** Comprises gate-level descriptions of half-adder, full-adder, 4-bit adder, and 10-bit adder components used throughout the design.
-* **Register:** Implements 4-bit and 10-bit registers to be used in design using jk flip flops designed  using just logic gates.The flip flop is triggered at every negative edge of                   clock.In order to clock pulse from clock signal just using logic gates we have used below circuit.
-![pulse_gen](https://github.com/user-attachments/assets/e391e62b-9dfe-41fe-a536-9308a1abbc14) 
-  
+* **Register:** Implements 4-bit and 10-bit registers to be used in design using jk flip flops designed  using just logic gates.  
 * **Binary_Counter:** This module implements a binary counter using jk flip flops which are used for generating address.
 * **Testbench:** Comprises of verilog testbench code in order to verify the design by simulation.
 ### Verification and Simulation:-
