@@ -60,7 +60,6 @@ The Design was verified using Vivado through various test cases. For Example one
 * **Vivado simulation Results:**  
 ![Simulation Result](https://github.com/user-attachments/assets/99c270fe-728d-4156-b435-4cd4302279eb)
 ### Major Advantages of Our Design:-
-* **Scalability:** Our design is highly scalable and can be easily scaled to multiply higher order matrices.
 * **Data reusability:** We access each data value only once and perform all the necessary calculations required.
 * **Parallelism:** We have a dedicated MAC for each of our output which helps in processing each of the data elements parallely. 
 
